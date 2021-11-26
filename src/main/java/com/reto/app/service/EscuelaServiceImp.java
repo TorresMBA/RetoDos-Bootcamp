@@ -1,8 +1,15 @@
 package com.reto.app.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,15 +17,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.reto.app.jasper.JasperReportManager;
 import com.reto.app.model.Escuela;
+import com.reto.app.model.Reporte;
 import com.reto.app.model.dao.IEscuelaDao;
 import com.reto.app.response.EscuelaResponseRest;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Service
 public class EscuelaServiceImp implements IEscuelaService{
 	
 	@Autowired
 	private IEscuelaDao escuelaDao;
+	
+	@Autowired
+	private JasperReportManager reportManager;
+	
+	@Autowired
+	private DataSource dataSource;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -143,5 +160,20 @@ public class EscuelaServiceImp implements IEscuelaService{
 		
 		return new ResponseEntity<EscuelaResponseRest>(response, HttpStatus.OK);
 	}
+
+	@Override
+	public Reporte obtenerReporteEscuela(Map<String, Object> params) throws JRException, IOException, SQLException {
+		String filename= "reporte_escuelas";
+		Reporte report = new Reporte();
+		report.setFileName(filename + ".pdf");
+		
+		ByteArrayOutputStream stream = reportManager.export(filename, params, dataSource.getConnection());
+		
+		byte[] bs = stream.toByteArray();		
+		report.setStream(new ByteArrayInputStream(bs));
+		report.setLength(bs.length);
+		
+		return report;
+	}	
 	
 }
