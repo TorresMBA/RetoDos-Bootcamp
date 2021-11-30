@@ -10,14 +10,17 @@
 	<br>
 	<br>
 	<div class="container">
-		<div>
-			<a th:href="@{/escuelas/crear}" class="btn btn-primary">Crea nueva Escuela</a>
-		</div>
+		<a th:href="@{/escuelas/crear}" class="btn btn-primary">Crea nueva Escuela</a>
 		<br />
-		<div>
-			<h5>Generar Reporte</h5>
-			<div class="row">
-				<div class="col-md-8">
+		<br />
+		<div class="card">
+			<div class="card-header">
+				<h3>Listado de Escuelas</h3>
+			</div>
+			<div class="card-body">
+<!-- 			<h4>Listado de Escuelas</h4> -->
+				<div class="form-group">
+					<h6>Generar reporte:</h6><br/>
 					<form action="http://localhost:8080/api/reporte" method="GET" target="_blank">
 						<div class="d-flex justify-content-around align-items-center">
 							<div>
@@ -32,58 +35,58 @@
 								<input type="submit" class="btn btn-success" value="Generar Reporte"/>
 							</div>						
 						</div>
-					</form>				
+					</form>		
+				</div><br>
+				<div style="overflow-x: auto;">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Nombre</th>
+								<th scope="col">Cantidad</th>
+								<th scope="col">Recurso fiscal</th>
+								<th scope="col">Licencia</th>
+								<th scope="col">Clasificacion</th>
+								<th scope="col">Facultad</th>
+								<th scope="col">Fecha Registro</th>
+								<th scope="col" colspan="2">Acciones</th>				
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${escuelas.size() == 0}">
+								<td colspan="8" style="text-align: center;">
+									<strong>No hay Datos disponibles</strong>
+								</td>
+							</tr>
+							<tr th:unless="${escuelas.size() == 0}" th:each="escuela : ${escuelas}">
+								<th scope="row" th:text=${escuela.idEscuela}>1</th>
+								<td th:text=${escuela.nombre}>Mark</td>
+								<td th:text=${escuela.cantAlumnos}>Otto</td>
+								<td th:text=${escuela.recursoFiscal}>Otto</td>
+								
+								<td>
+									<span th:if="${(escuela.licenciada == true) or (escuela.licenciada == 1)}" class="badge badge-success">SI</span>
+									<span th:unless="${(escuela.licenciada == true) or (escuela.licenciada == 1)}" class="badge badge-danger">NO</span>
+								</td>
+								
+								<td th:text=${escuela.calificacion}>Otto</td>
+								<td th:text=${escuela.facultad.descFacultad}>Otto</td>
+								
+								<td th:text="${#dates.format(escuela.fechaRegistro, 'dd-MM-yyyy')}">Otto</td>
+								<td>
+									<a th:href="@{/escuelas/editar/{id} (id=${escuela.idEscuela}) }">Editar</a>
+								</td>
+								<td>
+									<a th:href="@{/escuelas/eliminar/{id} (id=${escuela.idEscuela}) }" onclick="return confirm('Estas seguro?')">Eliminar</a>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
 				</div>
 			</div>
+			<div class="card-footer"></div>
 		</div>
-		<br/>
-		<br/>
-		<h4>Listado de Escuelas</h4>
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Cantidad</th>
-					<th scope="col">Recurso fiscal</th>
-					<th scope="col">Licencia</th>
-					<th scope="col">Clasificacion</th>
-					<th scope="col">Facultad</th>
-					<th scope="col">Fecha Registro</th>
-					<th scope="col" colspan="2">Acciones</th>				
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:if="${escuelas.size() == 0}">
-					<td colspan="8" style="text-align: center;">
-						<strong>No hay Datos disponibles</strong>
-					</td>
-				</tr>
-				<tr th:unless="${escuelas.size() == 0}" th:each="escuela : ${escuelas}">
-					<th scope="row" th:text=${escuela.idEscuela}>1</th>
-					<td th:text=${escuela.nombre}>Mark</td>
-					<td th:text=${escuela.cantAlumnos}>Otto</td>
-					<td th:text=${escuela.recursoFiscal}>Otto</td>
-					
-					<td>
-						<span th:if="${(escuela.licenciada == true) or (escuela.licenciada == 1)}" class="badge badge-success">SI</span>
-						<span th:unless="${(escuela.licenciada == true) or (escuela.licenciada == 1)}" class="badge badge-danger">NO</span>
-					</td>
-					
-					<td th:text=${escuela.calificacion}>Otto</td>
-					<td th:text=${escuela.facultad.descFacultad}>Otto</td>
-					
-					<td th:text="${#dates.format(escuela.fechaRegistro, 'dd-MM-yyyy')}">Otto</td>
-					<td>
-						<a th:href="@{/escuelas/editar/{id} (id=${escuela.idEscuela}) }">Editar</a>
-					</td>
-					<td>
-						<a th:href="@{/escuelas/eliminar/{id} (id=${escuela.idEscuela}) }" onclick="return confirm('Estas seguro?')">Eliminar</a>
-					</td>
-				</tr>
-				
-			</tbody>
-		</table>
 	</div>
 </body>
 </html>

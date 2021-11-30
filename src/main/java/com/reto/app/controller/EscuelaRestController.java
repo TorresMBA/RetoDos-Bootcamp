@@ -50,25 +50,25 @@ public class EscuelaRestController {
 	}
 	
 	@PostMapping("/escuelas")
-	public ResponseEntity<EscuelaResponseRest> crear(@RequestBody Escuela escuela) {
+	public ResponseEntity<EscuelaResponseRest> crearEscuela(@RequestBody Escuela escuela) {
 		ResponseEntity<EscuelaResponseRest> response = escuelaService.crearEscuela(escuela);
 		return response;
 	}
 	
 	@PutMapping("/escuelas/{id}")
-	public ResponseEntity<EscuelaResponseRest> actualizar (@RequestBody Escuela escuela, @PathVariable Long id) {
+	public ResponseEntity<EscuelaResponseRest> actualizarEscuela (@RequestBody Escuela escuela, @PathVariable Long id) {
 		ResponseEntity<EscuelaResponseRest> response = escuelaService.actualizarEscuela(escuela, id);
 		return response;
 	}
 	
 	@DeleteMapping("/escuelas/{id}")
-	public ResponseEntity<EscuelaResponseRest> eliminar (@PathVariable Long id) {
+	public ResponseEntity<EscuelaResponseRest> eliminarEscuela (@PathVariable Long id) {
 		ResponseEntity<EscuelaResponseRest> response = escuelaService.eliminarEscuela(id);
 		return response;
 	}
 	
 	@GetMapping("/reporte")
-	public ResponseEntity<Resource> eliminar (@RequestParam Map<String, Object> params) throws JRException, IOException, SQLException {
+	public ResponseEntity<Resource> reporteEscuelas (@RequestParam Map<String, Object> params) throws JRException, IOException, SQLException {
 		Reporte report = escuelaService.obtenerReporteEscuela(params);
 		
 		InputStreamResource streamResource = new InputStreamResource(report.getStream());

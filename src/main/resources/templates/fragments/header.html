@@ -27,13 +27,13 @@
 <!-- 				<a class="nav-link" th:href="@{/hospital/search}">Buscar</a> -->
 <!-- 			</li> -->
 		</ul>
-		<div sec:authorize="isAnonymous()"> 
-			<a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/login}">Ingresar</a>&nbsp; 
-			<a class="btn btn-outline-primary my-2 my-sm-0" th:href="@{/signup}">Registrarse</a>&nbsp; 				
-		</div>
-		<div sec:authorize="isAuthenticated()">
-			<span class="text-gray">Bienvenido: </span>&nbsp;<span class="text-gray" sec:authentication="name"></span>&nbsp;
-			<a class="btn btn-primary" th:href="@{/logout}">Salir</a>		
-		</div>
+<!-- 		<div sec:authorize="isAnonymous()">  -->
+<!-- 			<a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/login}">Ingresar</a>&nbsp;  -->
+<!-- 			<a class="btn btn-outline-primary my-2 my-sm-0" th:href="@{/signup}">Registrarse</a>&nbsp; 				 -->
+<!-- 		</div> -->
+<!-- 		<div sec:authorize="isAuthenticated()"> -->
+<!-- 			<span class="text-gray">Bienvenido: </span>&nbsp;<span class="text-gray" sec:authentication="name"></span>&nbsp; -->
+<!-- 			<a class="btn btn-primary" th:href="@{/logout}">Salir</a>		 -->
+<!-- 		</div> -->
 	</div>
 </nav>
