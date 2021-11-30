@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +22,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.reto.app.model.Escuela;
-import com.reto.app.model.Usuario;
 import com.reto.app.service.EscuelaConsumerService;
 
 import springfox.documentation.annotations.ApiIgnore;
 
 @Controller
-@RequestMapping("/escuelas")
+@RequestMapping("/")
 @ApiIgnore
 public class EscuelaController {
 	
@@ -34,82 +35,78 @@ public class EscuelaController {
 	
 	@Autowired
 	private EscuelaConsumerService consumerService;
-	
-	@GetMapping("/login")
-	public String formLogin() {
-		return "formLogin";
-	}
-	
-	@PostMapping("/login")
-	public String login(Usuario usuario) {
-		log.info("Login");
-		log.info("Login: " + usuario.toString());
-		return consumerService.login(usuario);
-	}
-	
-	@GetMapping
+		
+	@GetMapping({"/", "/escuelas"})
 	public String listadoEscuelas(Model model) {
-		log.info("Listado Escuelas");
+		log.info("Listado Escuelas" + consumerService.listadoEScuelas().toString());
 		model.addAttribute("escuelas", consumerService.listadoEScuelas());
 		return "index";
 	}
 		
-	@GetMapping("/{id}")
+	@GetMapping("/escuelas/{id}")
 	public String buscarPorEscuela(@PathVariable Long id, Model model) {
 		model.addAttribute("escuelas", consumerService.buscarPorId(id));
 		return "index";
 	}
 	
-	@GetMapping("/crear")
-	public String crear(@ModelAttribute Escuela escuela, BindingResult result, Model model) {
+	@GetMapping("/escuelas/crear")
+	public String crear(@ModelAttribute  Escuela escuela, BindingResult result, Model model) {
 		log.info("Mostrando Form Crear");
 		if(result.hasErrors()) {
 			return "formEscuela";
 		}
-		model.addAttribute("facultades", consumerService.listadoFacultades());
 		log.info(consumerService.listadoFacultades().toString());
 		return "formEscuela";
 	}
 	
-	@PostMapping("/guardar")
-	public String guardarEscuela(@ModelAttribute Escuela escuela, BindingResult bindResult, Model model) {
+	@PostMapping("/escuelas/guardar")
+	public String guardarEscuela(@Valid @ModelAttribute Escuela escuela, BindingResult bindResult, Model model) {
 		log.info("Guardar Escuela");
+		
 		if(bindResult.hasErrors()) {
-			return "formEscuelaGuardar";
+			return "formEscuela";
 		}
-		model.addAttribute("facultades", consumerService.listadoFacultades());
 		
 		log.info("Crear: " + escuela.toString());
 		consumerService.agregarEscuela(escuela);
+		
 		return "redirect:/escuelas";
 	}
 	
-	@GetMapping("/editar/{id}")
+	@GetMapping("/escuelas/editar/{id}")
 	public String editarEscuela(@PathVariable Long id, @ModelAttribute Escuela escuela, Model model) {
 		log.info("Mostrando Form Editar");
+		
 		List<Escuela> list = consumerService.buscarPorId(id);
-		model.addAttribute("facultades", consumerService.listadoFacultades());
-		log.info(consumerService.listadoFacultades().toString());
 		model.addAttribute("escuela", list.get(0));
+		model.addAttribute("titulo", "Editar Escuela");
 		model.addAttribute("action", "editar");
+		
 		return "formEscuela";
 	}
 	
-	@PostMapping("/actualizar")
+	@PostMapping("/escuelas/actualizar")
 	public String actualizarEscuela(@ModelAttribute Escuela escuela, BindingResult bindingResult) {
 		log.info("Actualizar Escuela");
+		
 		if(bindingResult.hasErrors()) {
 			return "formEscuela";
 		}
 		consumerService.actualizarEscuela(escuela.getIdEscuela(), escuela);
 		log.info("Actualizar: " + escuela.toString());
+
 		return "redirect:/escuelas";
 	}
 	
-	@GetMapping("/eliminar/{id}")
+	@GetMapping("/escuelas/eliminar/{id}")
 	public String eliminarEscuela(@PathVariable Long id) {
 		consumerService.eliminarEscuela(id);
 		return "redirect:/escuelas";
+	}
+	
+	@ModelAttribute
+	public void getModelGenerico(Model model) {
+		model.addAttribute("facultades", consumerService.listadoFacultades());
 	}
 	
 	@InitBinder

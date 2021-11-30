@@ -190,5 +190,4 @@ public class EscuelaServiceImp implements IEscuelaService{
 	public List<Facultad> listarFacultad() {
 		return (List<Facultad>) facultadDao.findAll();
 	}	
-	
 }

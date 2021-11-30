@@ -69,9 +69,7 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 	public void agregarRoleAUsuario(String nombreUsuario, String roleName) {
 		Usuario user = usuarioDao.findByNombreUsuario(nombreUsuario);
 		Role role =  rolDao.findByNombre(roleName);
-		user.getRoles().add(role);
-		
-		
+		user.getRoles().add(role);	
 	}
 
 	@Override
@@ -82,6 +80,11 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 	@Override
 	public List<Usuario> listadoUsuario() {
 		return (List<Usuario>) usuarioDao.findAll();
+	}
+	
+	public void delete() {
+		usuarioDao.deleteAll();
+		rolDao.deleteAll();
 	}
 
 }

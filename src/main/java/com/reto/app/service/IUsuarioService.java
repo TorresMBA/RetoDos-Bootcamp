@@ -16,4 +16,6 @@ public interface IUsuarioService {
 	public Usuario getUsuario(String nombreUsuario);
 	
 	public List<Usuario> listadoUsuario();
+	
+	public void delete();
 }

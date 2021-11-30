@@ -10,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,11 +31,22 @@ public class Escuela implements Serializable{
 	@JsonIgnoreProperties( {"hibernateLazyInitializer", "handler"})
 	private Facultad facultad;
 	
+	@NotEmpty(message = "Este campo es requerido")
+	@NotNull
 	private String nombre;
+	
+	@NotNull(message = "Este campo es requerido")
 	private Integer cantAlumnos;
+	
+	@NotNull(message = "Este campo es requerido")
 	private Double recursoFiscal;
+	
 	private Boolean licenciada;
+	
+	@NotNull(message = "Este campo es requerido")
 	private Integer calificacion;
+	
+	@Temporal(TemporalType.DATE)
 	private Date fechaRegistro;
 	
 	public Long getIdEscuela() {

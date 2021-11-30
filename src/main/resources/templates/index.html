@@ -13,21 +13,32 @@
 		<div>
 			<a th:href="@{/escuelas/crear}" class="btn btn-primary">Crea nueva Escuela</a>
 		</div>
+		<br />
 		<div>
-			<h2>Generar Reporte</h2>
-			<form action="http://localhost:8080/api/reporte" method="GET" target="_blank">
-				<div>
-					<label for="">Fecha Inicio</label>
-					<input type="date" name="fechaInicio" id="fechaInicio"/>
+			<h5>Generar Reporte</h5>
+			<div class="row">
+				<div class="col-md-8">
+					<form action="http://localhost:8080/api/reporte" method="GET" target="_blank">
+						<div class="d-flex justify-content-around align-items-center">
+							<div>
+								<label for="">Fecha Inicio</label>
+								<input type="date" class="form-control" name="fechaInicio" id="fechaInicio"/>
+							</div>
+							<div>
+								<label for="">Fecha Fin</label>
+								<input type="date" class="form-control" name="fechaFin" id="fechaFin"/>
+							</div>
+							<div>
+								<input type="submit" class="btn btn-success" value="Generar Reporte"/>
+							</div>						
+						</div>
+					</form>				
 				</div>
-				<div>
-					<label for="">Fecha Fin</label>
-					<input type="date" name="fechaFin" id="fechaFin"/>
-				</div>
-				<input type="submit" value="Generar Reporte"/>
-			</form>
+			</div>
 		</div>
 		<br/>
+		<br/>
+		<h4>Listado de Escuelas</h4>
 		<table class="table">
 			<thead>
 				<tr>
@@ -43,12 +54,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="escuela : ${escuelas}">
+				<tr th:if="${escuelas.size() == 0}">
+					<td colspan="8" style="text-align: center;">
+						<strong>No hay Datos disponibles</strong>
+					</td>
+				</tr>
+				<tr th:unless="${escuelas.size() == 0}" th:each="escuela : ${escuelas}">
 					<th scope="row" th:text=${escuela.idEscuela}>1</th>
 					<td th:text=${escuela.nombre}>Mark</td>
 					<td th:text=${escuela.cantAlumnos}>Otto</td>
 					<td th:text=${escuela.recursoFiscal}>Otto</td>
-					<td th:text=${escuela.licenciada}>Otto</td>
+					
+					<td>
+						<span th:if="${(escuela.licenciada == true) or (escuela.licenciada == 1)}" class="badge badge-success">SI</span>
+						<span th:unless="${(escuela.licenciada == true) or (escuela.licenciada == 1)}" class="badge badge-danger">NO</span>
+					</td>
+					
 					<td th:text=${escuela.calificacion}>Otto</td>
 					<td th:text=${escuela.facultad.descFacultad}>Otto</td>
 					
@@ -57,7 +78,7 @@
 						<a th:href="@{/escuelas/editar/{id} (id=${escuela.idEscuela}) }">Editar</a>
 					</td>
 					<td>
-						<a th:href="@{/escuelas/eliminar/{id} (id=${escuela.idEscuela}) }">Eliminar</a>
+						<a th:href="@{/escuelas/eliminar/{id} (id=${escuela.idEscuela}) }" onclick="return confirm('Estas seguro?')">Eliminar</a>
 					</td>
 				</tr>
 				

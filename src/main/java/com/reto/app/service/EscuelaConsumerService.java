@@ -18,7 +18,6 @@ import com.reto.app.consumer.MetadataResponse;
 import com.reto.app.consumer.Response;
 import com.reto.app.model.Escuela;
 import com.reto.app.model.Facultad;
-import com.reto.app.model.Usuario;
 
 @Service
 public class EscuelaConsumerService {
@@ -34,16 +33,11 @@ public class EscuelaConsumerService {
 	 @Value("${resource.escuelas}/{id}")
 	 private String idResource;
 	 
-	 public String login(Usuario usuario) {
-		 String data = restTemplate.postForObject("http://localhost:8080/api/login", usuario, Usuario.class).toString();
-		 return data;
-	 }
-	 
 	 public List<Escuela> listadoEScuelas(){
 		 ResponseEntity<Response> exchangEntity = restTemplate.exchange(resource, HttpMethod.GET, null, Response.class);
-			Response dto = exchangEntity.getBody();
-			log.info(dto.getEscuelaResponse().getEscuelas().toString());
-			return dto.getEscuelaResponse().getEscuelas();
+		 Response dto = exchangEntity.getBody();
+		 log.info(dto.getEscuelaResponse().getEscuelas().toString());
+		 return dto.getEscuelaResponse().getEscuelas();
 	 }
 	 
 	 public List<Facultad> listadoFacultades(){
@@ -52,9 +46,8 @@ public class EscuelaConsumerService {
 	 
 	 public List<Escuela> buscarPorId(Long id){
 		 ResponseEntity<Response> exchangEntity = restTemplate.exchange(idResource, HttpMethod.GET, null, Response.class, id);
-			Response dto = exchangEntity.getBody();
-			//log.info(dto.getEscuelaResponse().getEscuelas().toString());
-			return dto.getEscuelaResponse().getEscuelas();
+		 Response dto = exchangEntity.getBody();
+		 return dto.getEscuelaResponse().getEscuelas();
 	 }
 	 
 	 public void agregarEscuela(Escuela escuela) {
