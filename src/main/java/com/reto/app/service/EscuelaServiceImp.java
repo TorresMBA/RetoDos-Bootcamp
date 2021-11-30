@@ -19,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.reto.app.jasper.JasperReportManager;
 import com.reto.app.model.Escuela;
+import com.reto.app.model.Facultad;
 import com.reto.app.model.Reporte;
 import com.reto.app.model.dao.IEscuelaDao;
+import com.reto.app.model.dao.IFacultadDao;
 import com.reto.app.response.EscuelaResponseRest;
 
 import net.sf.jasperreports.engine.JRException;
@@ -30,6 +32,9 @@ public class EscuelaServiceImp implements IEscuelaService{
 	
 	@Autowired
 	private IEscuelaDao escuelaDao;
+	
+	@Autowired
+	private IFacultadDao facultadDao;
 	
 	@Autowired
 	private JasperReportManager reportManager;
@@ -102,7 +107,7 @@ public class EscuelaServiceImp implements IEscuelaService{
 			response.setMetadata("Respuesta failed", "-1", "No se pudo guardar el libro");
 			return new ResponseEntity<EscuelaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
-		
+		response.setMetadata("Respuesta ok", "1", "Escuela creada Correctamente");
 		return new ResponseEntity<EscuelaResponseRest>(response, HttpStatus.OK);
 	}
 
@@ -116,12 +121,17 @@ public class EscuelaServiceImp implements IEscuelaService{
 			Optional<Escuela> escuelaBuscada = escuelaDao.findById(id);
 			
 			if(escuelaBuscada.isPresent()) {
+				escuelaBuscada.get().setFacultad(escuela.getFacultad());
 				escuelaBuscada.get().setNombre(escuela.getNombre());
+				escuelaBuscada.get().setCantAlumnos(escuela.getCantAlumnos());
+				escuelaBuscada.get().setRecursoFiscal(escuela.getRecursoFiscal());
+				escuelaBuscada.get().setLicenciada(escuela.getLicenciada());
+				escuelaBuscada.get().setCalificacion(escuela.getCalificacion());
 				
 				Escuela escuelaActualizar = escuelaDao.save(escuelaBuscada.get());
 				
 				if(escuelaActualizar != null) {
-					response.setMetadata("Respuesta ok", "1", "Escuela Aztualizada");
+					response.setMetadata("Respuesta ok", "1", "Escuela Actualizada");
 					list.add(escuelaActualizar);
 					response.getEscuelaResponse().setEscuelas(list);
 				} else {
@@ -174,6 +184,11 @@ public class EscuelaServiceImp implements IEscuelaService{
 		report.setLength(bs.length);
 		
 		return report;
+	}
+
+	@Override
+	public List<Facultad> listarFacultad() {
+		return (List<Facultad>) facultadDao.findAll();
 	}	
 	
 }

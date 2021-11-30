@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Login | TiSmart Test</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<style>
+body {
+	background-color: #d2d6de;
+	text-align: center;
+}
+</style>
+</head>
+
+<body
+	class="d-flex flex-column justify-content-center align-items-center"
+	style="height: 100vh">
+	<div role="main">
+		<div>
+			<img
+				src="https://buk-cluster-enterprise-peru.s3.amazonaws.com/tismart/generals/logo_login/logo_login.png"
+				width="136" height="136" class="center">
+			<h3 class="form-signin-heading">¡¡¡Vamos por Mas!!! | TiSmart
+				Test</h3>
+			<br>
+		</div>
+		<div class="container">
+			<ul th:if="${param.error}" class="alert alert-danger"
+				role="alert">
+				<li>Username o Contraseña desconocidos</li>
+			</ul>
+			<form th:action="@{/escuelas/login}" class="form-signin" action="j_security_check" method="post">
+				<label for="username" class="sr-only">Usuario</label> 
+				<input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Usuario" required autofocus>
+				<br> 
+				<label for="password" class="sr-only">Contraseña</label> 
+				<input type="password" id="password" name="password" class="form-control" placeholder="Password" required> 
+				<br>
+				<button class="btn btn-lg btn-success btn-block" type="submit">Entrar</button>
+			</form>
+		</div>
+		<p>Usuario: test Password: test123</p>
+	</div>
+	<!-- /container -->
+	<!-- Bootstrap core JavaScript
+		================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</body>
+</html>

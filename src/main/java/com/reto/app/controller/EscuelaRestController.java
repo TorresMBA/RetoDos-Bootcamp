@@ -2,6 +2,7 @@ package com.reto.app.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,13 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reto.app.model.Escuela;
+import com.reto.app.model.Facultad;
 import com.reto.app.model.Reporte;
 import com.reto.app.response.EscuelaResponseRest;
 import com.reto.app.service.IEscuelaService;
 
 import net.sf.jasperreports.engine.JRException;
 
-
+@CrossOrigin(origins = {"http://localhost:8080"})
 @RestController
 @RequestMapping("/api")
 public class EscuelaRestController {
@@ -72,6 +75,11 @@ public class EscuelaRestController {
 		MediaType mediaType = MediaType.APPLICATION_PDF;
 				
 		return ResponseEntity.ok().header("Content-Diposition", "inline: filename=\""+ report.getFileName() + "\"").contentLength(report.getLength()).contentType(mediaType).body(streamResource);
+	}
+	
+	@GetMapping("/escuelas/facultades")
+	public List<Facultad> listadoFacultad(){
+		return escuelaService.listarFacultad();
 	}
 	
 }

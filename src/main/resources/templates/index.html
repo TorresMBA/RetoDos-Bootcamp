@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Reto 2 - BootCamp</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+	<header th:insert="fragments/header :: menu-principal"> </header>
+	<br>
+	<br>
+	<div class="container">
+		<div>
+			<a th:href="@{/escuelas/crear}" class="btn btn-primary">Crea nueva Escuela</a>
+		</div>
+		<div>
+			<h2>Generar Reporte</h2>
+			<form action="http://localhost:8080/api/reporte" method="GET" target="_blank">
+				<div>
+					<label for="">Fecha Inicio</label>
+					<input type="date" name="fechaInicio" id="fechaInicio"/>
+				</div>
+				<div>
+					<label for="">Fecha Fin</label>
+					<input type="date" name="fechaFin" id="fechaFin"/>
+				</div>
+				<input type="submit" value="Generar Reporte"/>
+			</form>
+		</div>
+		<br/>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Cantidad</th>
+					<th scope="col">Recurso fiscal</th>
+					<th scope="col">Licencia</th>
+					<th scope="col">Clasificacion</th>
+					<th scope="col">Facultad</th>
+					<th scope="col">Fecha Registro</th>
+					<th scope="col" colspan="2">Acciones</th>				
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="escuela : ${escuelas}">
+					<th scope="row" th:text=${escuela.idEscuela}>1</th>
+					<td th:text=${escuela.nombre}>Mark</td>
+					<td th:text=${escuela.cantAlumnos}>Otto</td>
+					<td th:text=${escuela.recursoFiscal}>Otto</td>
+					<td th:text=${escuela.licenciada}>Otto</td>
+					<td th:text=${escuela.calificacion}>Otto</td>
+					<td th:text=${escuela.facultad.descFacultad}>Otto</td>
+					
+					<td th:text="${#dates.format(escuela.fechaRegistro, 'dd-MM-yyyy')}">Otto</td>
+					<td>
+						<a th:href="@{/escuelas/editar/{id} (id=${escuela.idEscuela}) }">Editar</a>
+					</td>
+					<td>
+						<a th:href="@{/escuelas/eliminar/{id} (id=${escuela.idEscuela}) }">Eliminar</a>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

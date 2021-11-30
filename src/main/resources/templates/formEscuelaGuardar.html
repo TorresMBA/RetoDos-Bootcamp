@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Guardar Escuela - BootCamp</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+
+	<div class="container">
+		<h1>Registrar Escuelas</h1>
+		<form th:action="@{/escuelas/guardar}" method="POST" th:object="${escuela}">
+			<input type="hidden" th:if="*{idEscuela != null}" th:field="*{idEscuela}" />
+			
+			<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role='alert'>
+				Por favor corrija los siguiente errores:
+				<ul>
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+				</ul>
+			</div>
+			
+			<div class="form-group">
+				<!-- Full Name -->
+				<label for="full_name_id" class="control-label">Nombre:</label> 
+				<input type="text" th:field="*{nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre...">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+			</div>
+	
+			<div class="form-group">
+				<!-- Street 1 -->
+				<label for="street1_id" class="control-label">Cantidad de Alumnos:</label> 
+				<input type="text" th:field="*{cantAlumnos}" class="form-control" id="cantAlumnos" name="cantAlumnos" placeholder="Cantidad...">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('cantAlumnos')}" th:errors="*{cantAlumnos}"></small>
+			</div>
+	
+			<div class="form-group">
+				<!-- Street 2 -->
+				<label for="street2_id" class="control-label">Recurso fiscal:</label> 
+				<input type="text" th:field="*{recursoFiscal}" class="form-control" id="recursoFiscal" name="recursoFiscal"	placeholder="Recurso...">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('recursoFiscal')}" th:errors="*{nombre}"></small>
+			</div>
+	
+			<div class="form-group">
+				<!-- City-->
+				<label for="city_id" class="control-label">Licencia</label>
+				<input	type="text" th:field="*{licenciada}" class="form-control" id="licenciada" name="licenciada" placeholder="Licencia...">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('licenciada')}" th:errors="*{licenciada}"></small>
+			</div>
+	
+			<div class="form-group">
+				<!-- Zip Code-->
+				<label for="zip_id" class="control-label">Clasificacion:</label> 
+				<input type="text" th:field="*{calificacion}" class="form-control" id="calificacion" name="calificacion" placeholder="Calificacion...">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('calificacion')}" th:errors="*{calificacion}"></small>
+			</div>
+			
+			<div class="form-group">
+				<!-- State Button -->
+				<label for="state_id" class="control-label">Facultad:</label> 
+				<select th:field="*{facultad.idFacultad}" name="facultad" class="form-control" id="facultad">
+					<option th:field="*{facultad.idFacultad}"  
+						th:each="facultad: ${facultades}"
+						th:value="${facultad.idFacultad}" 
+						th:text="${facultad.descFacultad}">Washington</option>
+				</select>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('facultad')}" th:errors="*{facultad}"></small>
+			</div>
+			
+			<div class="form-group">
+				<!-- Zip Code-->
+				<label for="zip_id" class="control-label">Fecha:</label> 
+				<input type="text" th:field="*{fechaRegistro}" class="form-control" id="fechaRegistro" name="fechaRegistro" placeholder="dd-MM-yyyy">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('fechaRegistro')}" th:errors="*{fechaRegistro}"></small>
+			</div>
+			
+	
+			<div class="form-group">
+				<!-- Submit Button -->
+				<button type="submit" class="btn btn-primary">Guardar</button>
+			</div>
+	
+		</form>
+	
+		</form>
+	</div>
+</body>
+</html>
