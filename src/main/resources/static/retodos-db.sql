@@ -34,7 +34,7 @@ CREATE TABLE `escuela` (
   PRIMARY KEY (`id_escuela`),
   KEY `FKduk2xuni4uxm7xm1drd7jbfuh` (`facultad_id`),
   CONSTRAINT `FKduk2xuni4uxm7xm1drd7jbfuh` FOREIGN KEY (`facultad_id`) REFERENCES `facultad` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `escuela` (
 
 LOCK TABLES `escuela` WRITE;
 /*!40000 ALTER TABLE `escuela` DISABLE KEYS */;
-INSERT INTO `escuela` VALUES (1,10,43,'2021-11-30',_binary '','Escuela1',432,4),(2,12,545,'2021-11-30',_binary '\0','Prueba',1,3);
+INSERT INTO `escuela` VALUES (1,10,43,'2021-11-29',_binary '','Escuela1',432,4),(2,12,545,'2021-11-30',_binary '\0','Escuela2',1,3),(3,10,57,'2021-12-01',_binary '\0','Escuela3',4565,4),(4,5,98,'2021-12-01',_binary '','Escuela4',123,3),(5,12,567,'2021-12-02',_binary '\0','Escuela5',9089,3),(6,12,43,'2021-12-30',_binary '','Escuela6',654,3),(7,12,98,'2021-12-01',_binary '\0','Escuela7',7867,4),(10,5,78,'2021-11-30',_binary '\0','Escuela8',67,4),(11,8,653,'2021-11-02',_binary '','Escuela9',8564,2),(12,6,856,'2021-11-29',_binary '','Escuela10',895,1);
 /*!40000 ALTER TABLE `escuela` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `roles` (
   `nombre` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_ldv0v52e0udsh2h1rs0r0gw1n` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (23,'ROLE_ADMIN'),(22,'ROLE_MANAGER'),(24,'ROLE_SUPER_ADMIN'),(21,'ROLE_USER');
+INSERT INTO `roles` VALUES (95,'ROLE_ADMIN'),(94,'ROLE_MANAGER'),(96,'ROLE_SUPER_ADMIN'),(93,'ROLE_USER');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +112,7 @@ CREATE TABLE `usuarios` (
   `password` varchar(65) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_of5vabgukahdwmgxk4kjrbu98` (`nombre_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (21,_binary '','UserTest1','test1','$2a$10$egi1/EOlKo/8EgfgC8DCGuSmxOVyi/H5ZB/1iZ3PGR01IkYPdPRj2'),(22,_binary '','UserTest2','test2','$2a$10$4CbCz41LPriNVYlgsVdFGO0.0lR9xR.bZQDf8Z84WGHYSqtzHuSk2'),(23,_binary '','UserTest3','test3','$2a$10$VEnIt.lbd7vToCKBrOKrDedUNzGdu5c3hNAxKPQkTcbX14j5UPXKy'),(24,_binary '','UserTest4','test4','$2a$10$Ncn3J1tAwmXOBPI7JIkZl.hvqv2gJ5ZoSdHSUf.QX.ZLNiLYi7gTq');
+INSERT INTO `usuarios` VALUES (93,_binary '','UserTest1','test1','$2a$10$lzdQ9GRp1QZDsj..E7gUl.uDobc9yvleGuV5sX81qIhlYDzWW2gCm'),(94,_binary '','UserTest2','test2','$2a$10$DgVY2MZwOhcUCiciF7RGl.qR/OgfVGweM6cGnpx3Uy07Pq.gG4tHe'),(95,_binary '','UserTest3','test3','$2a$10$rohhfcgZS6m3Fdaee35SuOm9J5UK88MWvj9CS6n6vtE4zL8vXdmsS'),(96,_binary '','UserTest4','test4','$2a$10$.8iZibDlIMh7cRu2YcjaN.DGmy4GXpDFNZR1JXBdkz0aLtku4EDMG');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-30 14:44:39
+-- Dump completed on 2021-12-01 21:29:57
